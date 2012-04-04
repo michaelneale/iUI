@@ -1,6 +1,13 @@
-/* defaultgrad-theme.css (c) 2007-2012 by iUI Project Members, see LICENSE.txt for license */
+// defaultgrad-theme.less (c) 2007-2012 by iUI Project Members, see LICENSE.txt for license
+// lesscss.js does not copy // comments to output...
+// ... so the following is the comment-line for the output file default-theme-from-less.css
+/* defaultgrad-theme-from-less.css (c) 2007-2012 by iUI Project Members, see LICENSE.txt for license */
+
+@import "../default/theme-variables.less";
+@import "theme-variables.less";
+
 body {
-    color: #000000;
+    color: @body-color;
 }
 
 li > a[selected], li > a:active {
@@ -16,19 +23,19 @@ li > a[selected="progress"] {
 body > .toolbar {
 	border:		0px;
     background-image: -webkit-gradient(linear, left top, left bottom, 
-    					from(rgb(204,210,218)), 
-	    					color-stop(0.03, rgb(181,192,206)), 
-	    					color-stop(0.5, rgb(136,155,179)),
-	    					color-stop(0.5, rgb(126,148,176)), 
-	    					color-stop(0.97, rgb(109,131,161)), 
-	    				to(rgb(45,54,66)));
+    					from(@toolbar-grad-color1), 
+	    					color-stop(0.03, @toolbar-grad-color2), 
+	    					color-stop(0.5, @toolbar-grad-color3),
+	    					color-stop(0.5, @toolbar-grad-color4), 
+	    					color-stop(0.97, @toolbar-grad-color5), 
+	    				to(@toolbar-grad-color6));
     background-image: -moz-linear-gradient(270deg, 
-    					rgb(204,210,218) 0%, 
-    						rgb(181,192,206) 3%, 
-    						rgb(136,155,179) 50%, 
-    						rgb(126,148,176) 51%,
-    						rgb(109,131,161) 97%, 
-    					rgb(45,54,66) 100%);
+    					@toolbar-grad-color1 0%, 
+    						@toolbar-grad-color2 3%, 
+    						@toolbar-grad-color3 50%, 
+    						@toolbar-grad-color4 51%,
+    						@toolbar-grad-color5 97%, 
+    					@toolbar-grad-color6 100%);
     background-size:auto 45px;
 }
 
@@ -252,17 +259,17 @@ body > ul > li > a {
 /************************************************************************************************/
 
 body > .panel {
-    background-color: #c5ccd4;
+    background-color: @panel-bg-color;
     background-image: -webkit-gradient(linear, left top, right top,
-                          from(rgb(197,204,212)),
-                          color-stop(0.86,rgb(197,204,212)),
-                          color-stop(0.87,rgb(203,210,216)),
-                          to(rgb(203,210,216)));
+                          from(@panel-bg-color),
+                          color-stop(0.86,@panel-bg-color),
+                          color-stop(0.87,@panel-stripe-color),
+                          to(@panel-stripe-color));
     background-image: -moz-linear-gradient(0deg,
-                          rgb(197,204,212) 0%,
-                          rgb(197,204,212) 86%,
-                          rgb(203,210,216) 87%,
-                          rgb(203,210,216) 100%);
+                          @panel-bg-color 0%,
+                          @panel-bg-color 86%,
+                          @panel-stripe-color 87%,
+                          @panel-stripe-color 100%);
     -webkit-background-size:  7px 1px;
     -moz-background-size:     7px 1px;
     background-size:          7px 1px;

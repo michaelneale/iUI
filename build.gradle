@@ -117,14 +117,18 @@ task lessCompile(dependsOn: releasedir) {
         println "Running lessCompile task..."
         // Instantiate the LESS compiler
         def lessCompiler = new org.lesscss.LessCompiler()
-        // Compile "iui-from-less.css"
+        //** Compile "iui-from-less.css"
         def inputLess = new File("web-app/iui/iui.less")
         def outputCss = new File("${ant.properties['release.dir.webapp']}/iui/iui-from-less.css")
         println "LESS: Compiling ${inputLess} to ${outputCss}..."
         lessCompiler.compile(inputLess, outputCss);
-        // Compile "default-theme-from-less.css"
+        //** Compile "default-theme-from-less.css"
         inputLess = new File("web-app/iui/t/default/default-theme.less")
         outputCss = new File("${ant.properties['release.dir.webapp']}/iui/t/default/default-theme-from-less.css")
+        println "LESS: Compiling ${inputLess} to ${outputCss}..."
+        //** Compile "defaultgrad-theme-from-less.css"
+        inputLess = new File("web-app/iui/t/defaultgrad/defaultgrad-theme.less")
+        outputCss = new File("${ant.properties['release.dir.webapp']}/iui/t/defaultgrad/defaultgrad-theme-from-less.css")
         println "LESS: Compiling ${inputLess} to ${outputCss}..."
         lessCompiler.compile(inputLess, outputCss);
     }
