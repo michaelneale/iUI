@@ -11,6 +11,8 @@ try {
 catch(InterruptedException ie) { }
 Boolean fullPage = headers."X-Requested-With" != "XMLHttpRequest"
 String selected = ""
+/* Make backButton work for fullPage mode by using the Referer HTTP header */
+String backURL = headers.Referer ?: 'form-test.html'
 if (fullPage) {
     selected = 'selected="true"'
 }
@@ -28,12 +30,12 @@ if (fullPage) {
 <body>
     <div class="toolbar">
         <h1 id="pageTitle">Full Page Echo</h1>
-        <a id="backButton" class="button" style="display: inline" href="form-test.html">Back</a>
+        <a id="backButton" class="button" style="display: inline" href="${backURL}">Back</a>
     </div>
 <% } %>   
 
 <div id="form-echo" class="panel" title="Form Echo" $selected>
-  <h2>Req Info</h2>
+  <h2 style="color: black">Request Info</h2>
   <fieldset>
     <div class="row">
         <label>Method</label>
@@ -43,12 +45,8 @@ if (fullPage) {
         <label>RemoteHost</label>
         <span>${request.remoteHost}</span>
     </div>
-    <div class="row">
-        <label>delay</label>
-        <span>$delay</span>
-    </div>
   </fieldset>
-  <h2>Parameters</h2>
+  <h2 style="color: black">Form Parameters</h2>
   <fieldset>
     <% for (p in params.sort()) { %>
     <div class="row">
@@ -57,12 +55,12 @@ if (fullPage) {
     </div>
     <% } %>
   </fieldset>
-  <h2>Headers</h2>
-  <h2>Use a dl to remind us to add CSS</h2>
-  <dl>
-    <% for (h in headers) { %>
-    <dt>$h.key</dt>
-    <dd>$h.value</dd>
+  <h2 style="color: black">HTTP Headers</h2>
+    <% for (h in headers.sort()) { %>
+    <h2>$h.key</h2>
+    <fieldset>
+        <p style="padding: 0 10px 0 10px">$h.value</p>
+    </fieldset>
     <% } %>
   </dl>
 </div>
