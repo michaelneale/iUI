@@ -26,6 +26,8 @@ apply plugin: 'gaelyk'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
+ant.importBuild 'build.xml'
+
 def compatibilityVersion = 1.5
 sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
@@ -97,6 +99,30 @@ task copyRuntimeLibraries(type: Sync) {
     description = "Copies runtime libraries to $webAppLibDirName."
     from configurations.runtime
     into webAppLibDirName
+}
+
+// LESS CSS compile task
+// I'd like to have (or write?) a gradle plugin for LESS
+task lessCompile(dependsOn: releasedir) {
+    doLast {
+        println "Running lessCompile task..."
+        // Instantiate the LESS compiler
+        def lessCompiler = new org.lesscss.LessCompiler()
+        //** Compile "iui-from-less.css"
+        def inputLess = new File("web-app/iui/iui.less")
+        def outputCss = new File("${ant.properties['release.dir.webapp']}/iui/iui-from-less.css")
+        println "LESS: Compiling ${inputLess} to ${outputCss}..."
+        lessCompiler.compile(inputLess, outputCss);
+        //** Compile "default-theme-from-less.css"
+        inputLess = new File("web-app/iui/t/default/default-theme.less")
+        outputCss = new File("${ant.properties['release.dir.webapp']}/iui/t/default/default-theme-from-less.css")
+        println "LESS: Compiling ${inputLess} to ${outputCss}..."
+        //** Compile "defaultgrad-theme-from-less.css"
+        inputLess = new File("web-app/iui/t/defaultgrad/defaultgrad-theme.less")
+        outputCss = new File("${ant.properties['release.dir.webapp']}/iui/t/defaultgrad/defaultgrad-theme-from-less.css")
+        println "LESS: Compiling ${inputLess} to ${outputCss}..."
+        lessCompiler.compile(inputLess, outputCss);
+    }
 }
 
 gaeRun.dependsOn copyRuntimeLibraries
