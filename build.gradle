@@ -31,7 +31,6 @@ def compatibilityVersion = 1.5
 sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
 
-githubPages.repoUri = 'git@github.com:msgilligan/iUI.git'
 
 buildscript {
     repositories {
@@ -78,6 +77,26 @@ dependencies {
     functionalTestCompile 'org.codehaus.geb:geb-spock:0.7.0',
                           'org.seleniumhq.selenium:selenium-firefox-driver:2.20.0'
     gaeSdk "com.google.appengine:appengine-java-sdk:$gaeVersion"
+}
+
+// Use "./gradlew processGhPages" to clone the gh-pages branch
+// into directory bild/ghpages and then sync our static files
+githubPages {
+    repoUri = 'git@github.com:msgilligan/iUI.git'
+    pages {
+        destinationDir = file('build/ghpages')
+        from('web-app/') {
+            exclude('WEB-INF')
+        }
+    }
+}
+
+// Since processGhPages always does the clone, we can use this
+// task to just do the sync.  Is there a better way?
+task ghpagesCopyOnly(type: Sync) {
+    description = "Copies static files to build/ghpages."
+    destinationDir = file('build/ghpages')
+    with githubPages.pages
 }
 
 //webAppDirName = file('web-app')
