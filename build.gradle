@@ -21,6 +21,7 @@
 
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'github-pages'
 apply plugin: 'gae'
 apply plugin: 'gaelyk'
 apply plugin: 'eclipse'
@@ -29,6 +30,8 @@ apply plugin: 'idea'
 def compatibilityVersion = 1.5
 sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
+
+githubPages.repoUri = 'git@github.com:msgilligan/iUI.git'
 
 buildscript {
     repositories {
@@ -39,6 +42,7 @@ buildscript {
         classpath 'org.gradle.api.plugins:gradle-gae-plugin:0.7'
         classpath 'org.gradle.api.plugins:gradle-gaelyk-plugin:0.3.2'
         classpath 'eu.appsatori:gradle-fatjar-plugin:0.1.1'
+        classpath 'org.ajoberstar:gradle-git:0.2.0'                 // For publishing GitHub pages
     }
 }
 
